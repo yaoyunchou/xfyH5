@@ -35,7 +35,7 @@ const Preview: React.FC<PreviewProps> = () => {
   
   const [xyShops, setXyShops] = React.useState<{ shopName: string }[]>([{shopName:"蓝小飞鱼"}, {shopName:"tb133799136652"}]);
   // 根据id获取对应的书籍信息
-  const { loading, data, run } = useRequest<any>(getNewBookDetailById, {
+  const { loading, data, run } = useRequest<any,any>(getNewBookDetailById, {
     manual: true,
   });
 

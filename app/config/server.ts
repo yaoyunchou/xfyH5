@@ -98,7 +98,7 @@ function getApiKey(keys?: string) {
     );
   }
 
-  return 
+  return apiKey;
   
   ;
 }
@@ -149,7 +149,6 @@ export const getServerSideConfig = () => {
     baseUrl: process.env.BASE_URL,
     apiKey: getApiKey(process.env.OPENAI_API_KEY),
     openaiOrgId: process.env.OPENAI_ORG_ID,
-    xfyBaseUrl: process.env.XFY_BASE_URL,
 
     isStability,
     stabilityUrl: process.env.STABILITY_URL,

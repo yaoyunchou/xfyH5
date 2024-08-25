@@ -68,32 +68,32 @@ export function auth(req: NextRequest, modelProvider: ModelProvider) {
 
     switch (modelProvider) {
       case ModelProvider.Stability:
-        systemApiKey = serverConfig.stabilityApiKey;
+        systemApiKey = serverConfig.stabilityApiKey || '';
         break;
       case ModelProvider.GeminiPro:
-        systemApiKey = serverConfig.googleApiKey;
+        systemApiKey = serverConfig.googleApiKey || '';
         break;
       case ModelProvider.Claude:
-        systemApiKey = serverConfig.anthropicApiKey;
+        systemApiKey = serverConfig.anthropicApiKey || '';
         break;
       case ModelProvider.Doubao:
-        systemApiKey = serverConfig.bytedanceApiKey;
+        systemApiKey = serverConfig.bytedanceApiKey || '';
         break;
       case ModelProvider.Ernie:
-        systemApiKey = serverConfig.baiduApiKey;
+        systemApiKey = serverConfig.baiduApiKey || '';
         break;
       case ModelProvider.Qwen:
-        systemApiKey = serverConfig.alibabaApiKey;
+        systemApiKey = serverConfig.alibabaApiKey || '';
         break;
       case ModelProvider.Moonshot:
-        systemApiKey = serverConfig.moonshotApiKey;
+        systemApiKey = serverConfig.moonshotApiKey || '';
         break;
       case ModelProvider.GPT:
       default:
         if (req.nextUrl.pathname.includes("azure/deployments")) {
-          systemApiKey = serverConfig.azureApiKey;
+          systemApiKey = serverConfig.azureApiKey || '';
         } else {
-          systemApiKey = serverConfig.apiKey;
+          systemApiKey = serverConfig.apiKey || '';
         }
     }
 

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const AddBook = () => {
     const navigator = useNavigate();
     const [isbn, setIsbn] = React.useState<string>("");
-    const [current, setCurrent] = React.useState<CreateBookDto>({});
+    const [current, setCurrent] = React.useState<CreateBookDto>();
   
     const handlerSearch = async () => {
       // 根据isbn获取书籍信息

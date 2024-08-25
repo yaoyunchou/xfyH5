@@ -25,7 +25,7 @@ export const BookList = () => {
       if (data && data?.data?.length >= 0) {
         setList(val => [...val, ...data.data])
         // 检查是否为最后一页
-        if(current * 10 < data.total) {
+        if( data.total  && current * 10 < data.total) {
           setHasMore(true)
         }
       }
