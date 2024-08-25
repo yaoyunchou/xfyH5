@@ -24,7 +24,7 @@ export const XfyHome = () => {
     <Button block color='primary' onClick={() => navigate(Path.AddBook)}>
        新增
    </Button>
-   <Button block color='primary'>
+   <Button block color='primary' onClick={() => navigate(Path.BookList)}>
        图书列表
    </Button>
  </DemoBlock>

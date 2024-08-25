@@ -50,11 +50,11 @@ const Preview: React.FC<PreviewProps> = () => {
   };
 
   const handlerPushBook = async () => {
+    console.log('data-----', data)
     if (data?.data && data?.data?.bookInfo && xyShops.length > 0) {
       const promiseArray = xyShops.map(async (shop) => {
         return publishBook({
           ...data.data.bookInfo,
-          price: data?.price,
           shopName: shop.shopName,
         });
       });

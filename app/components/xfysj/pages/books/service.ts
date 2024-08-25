@@ -46,7 +46,7 @@ export async function addBookByISBN(isbn: string) {
  *
  */
 export async function publishBook(data: { [key: string]: any }) {
-    return axios<any>("/api/publish/book", {
+    return axios<any>("/api/xfy/publish/book", {
       data,
       method: "POST",
     });
@@ -159,6 +159,7 @@ export async function getNewBookDetailById(id: string) {
         title: baseData.title,
         bookInfo: {
           title: baseData.title,
+          price: baseData.price,
           isbn: baseData.isbn,
           author: baseData.author,
           images: baseData?.images?.length

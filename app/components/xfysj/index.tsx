@@ -1,9 +1,8 @@
 import React, { use, useEffect } from 'react'
-import { Button, CapsuleTabs } from 'antd-mobile'
 
 
 import styles from './indexPage.module.scss'
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Path } from '@/app/constant';
 import { Loading } from '../home';
 import dynamic from 'next/dynamic';
@@ -35,9 +34,12 @@ export const XfyPage = () => {
       getTokenByCode()
     }
   }, []);
+  const navigator = useNavigate()
   return (
     <div className={styles.xfy_page}>
-      <div className={styles.home}><AppstoreOutline /></div>
+      <div className={styles.home}>
+        <AppstoreOutline fontSize={20} onClick={()=> navigator(Path.XfyPage)} />
+      </div>
       <Routes>
             <Route path={Path.XfyPage} element={<XfyHome />} />
             <Route path={Path.AddBook} element={<AddBook />} />

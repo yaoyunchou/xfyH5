@@ -1,6 +1,15 @@
 .xfy_page{
     width: 100%;
     overflow-y: auto;
+
+    .home{
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        width: 30px;
+        z-index: 1;
+    
+    }
     button{
         margin-bottom: 10px;
     }
@@ -17,5 +26,20 @@
     }
     pre{
         white-space: pre-wrap;
+    }
+    .search{
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .list_box{
+        height: calc(100vh - 100px);
+    }
+    .list_item{
+        .item_content{
+            display: block;
+            overflow: hidden;
+            
+        }
     }
 }

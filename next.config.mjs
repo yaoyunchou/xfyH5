@@ -4,6 +4,10 @@ const mode = process.env.BUILD_MODE ?? "standalone";
 console.log("[Next] build mode", mode);
 
 const disableChunk = !!process.env.DISABLE_CHUNK || mode === "export";
+const xfyApi = process.env.XFY_API ?? "http://localhost:5000/api";
+const nestApi = process.env.XFY_API ?? "http://localhost:5000/api";
+
+
 console.log("[Next] build with chunk: ", !disableChunk);
 
 /** @type {import('next').NextConfig} */
@@ -88,11 +92,11 @@ if (mode !== "export") {
       },
       {
         source: "/api/xfy/:path*",
-        destination: "http://localhost:5000/api/:path*",
+        destination:  process.env.XFY_API ,
       },
       {
         source: "/api/nest/:path*",
-        destination: "http://localhost:8080/api/v1/:path*",
+        destination: process.env.NEST_API ,
       },
       {
         source: "/google-fonts/:path*",
