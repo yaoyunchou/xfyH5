@@ -40,6 +40,10 @@ export enum Path {
   Sd = "/sd",
   SdNew = "/sd-new",
   Artifacts = "/artifacts",
+  XfyPage = "/xfy",
+  AddBook = "/xfy/new-book",
+  BookList = "/xfy/book-list",
+  BookDetail = "/xfy/book-detail/:id",
 }
 
 export enum ApiPath {
@@ -423,3 +427,6 @@ export const internalAllowedWebDavEndpoints = [
 ];
 
 export const PLUGINS = [{ name: "Stable Diffusion", path: Path.Sd }];
+
+export const XFY_BASE_URL = "http://localhost:5000";
+export const XFY_NEST_BASE_URL = "http://localhost:8080";

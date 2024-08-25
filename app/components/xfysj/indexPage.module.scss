@@ -1,0 +1,21 @@
+.xfy_page{
+    width: 100%;
+    overflow-y: auto;
+    button{
+        margin-bottom: 10px;
+    }
+    dl{
+        display: block;
+        overflow: hidden;
+        dt{
+            float: left;
+        }
+        dd{
+            float: left;
+            margin-left: 10px;
+        }
+    }
+    pre{
+        white-space: pre-wrap;
+    }
+}

@@ -63,6 +63,12 @@ const Sd = dynamic(async () => (await import("./sd")).Sd, {
   loading: () => <Loading noLogo />,
 });
 
+
+const XfyPage = dynamic(async () => (await import("./xfysj/index")).XfyPage, {
+  loading: () => <Loading noLogo />,
+});
+
+
 export function useSwitchTheme() {
   const config = useAppConfig();
 
@@ -146,6 +152,7 @@ function Screen() {
   const isAuth = location.pathname === Path.Auth;
   const isSd = location.pathname === Path.Sd;
   const isSdNew = location.pathname === Path.SdNew;
+  const isXfyPage = location.pathname.indexOf("xfy") > -1;
 
   const isMobileScreen = useMobileScreen();
   const shouldTightBorder =
@@ -166,6 +173,7 @@ function Screen() {
     if (isAuth) return <AuthPage />;
     if (isSd) return <Sd />;
     if (isSdNew) return <Sd />;
+    if (isXfyPage) return <XfyPage />;
     return (
       <>
         <SideBar className={isHome ? styles["sidebar-show"] : ""} />

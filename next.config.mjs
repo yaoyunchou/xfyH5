@@ -87,6 +87,14 @@ if (mode !== "export") {
         destination: "https://api.anthropic.com/:path*",
       },
       {
+        source: "/api/xfy/:path*",
+        destination: "http://localhost:5000/api/:path*",
+      },
+      {
+        source: "/api/nest/:path*",
+        destination: "http://localhost:8080/api/v1/:path*",
+      },
+      {
         source: "/google-fonts/:path*",
         destination: "https://fonts.googleapis.com/:path*",
       },
