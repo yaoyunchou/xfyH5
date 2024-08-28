@@ -6,7 +6,7 @@ import {
   publishBook,
   updateNewBookDetailById,
 } from "./service";
-import { Button, Image, ImageViewer, Selector, Space } from "antd-mobile";
+import { Button, Image, ImageViewer, Selector, Space, Toast } from "antd-mobile";
 import { useParams } from "react-router-dom";
 
 
@@ -48,6 +48,24 @@ const Preview: React.FC<PreviewProps> = () => {
     const newXyShops = value.map((shopName) => ({ shopName }));
     setXyShops(newXyShops);
   };
+
+  async function copyTextToClipboard(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      Toast.show({
+        icon: 'sercuss',
+        content:"复制成功"
+      })
+      // 复制成功的处理
+    } catch (err) {
+      console.error('无法复制文本: ', err);
+      Toast.show({
+        icon: 'error',
+        content:"无法复制文本"
+      })
+      // 复制失败的处理
+    }
+  }
 
   const handlerPushBook = async () => {
     console.log('data-----', data)
@@ -92,6 +110,7 @@ const Preview: React.FC<PreviewProps> = () => {
         })}
 
       {!loading ? <pre>{data && getBookContent(data.data)}</pre> : null}
+      <Button color="primary" onClick={() => copyTextToClipboard(getBookContent(data.data))}>复制文本</Button>
       <div>---------------------</div>
       <Space wrap>
         {data?.data?.bookInfo?.images?.map((image: string, index:number) => (
