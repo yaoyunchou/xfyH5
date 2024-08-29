@@ -53,7 +53,7 @@ const Preview: React.FC<PreviewProps> = () => {
 
     if(ref?.current && data?.data){
 
-      const clipboard = new ClipboardJS(ref?.current?.nativeElement, {
+      const clipboard = new ClipboardJS((ref?.current as any)?.nativeElement, {
         text: () => getBookContent(data.data)
       });
       clipboard.on('success', function(e) {
