@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useRequest } from "ahooks";
 import {
   getBookContent,
@@ -6,10 +6,11 @@ import {
   publishBook,
   updateNewBookDetailById,
 } from "./service";
-import { Button, Image, ImageViewer, Selector, Space, Toast } from "antd-mobile";
+import { Button, Image, ImageViewer, Selector, Space, TextArea, Toast ,Input, Checkbox} from "antd-mobile";
 import { useParams } from "react-router-dom";
 import ClipboardJS from "clipboard";
 
+import styles from  '../../indexPage.module.scss'
 
 // 多张图片预览
 const Multi = ({images,index, visible, setVisible}:{images: string[], index:number, visible: boolean, setVisible:(value:boolean)=>void}) => {
@@ -35,6 +36,10 @@ const Preview: React.FC<PreviewProps> = () => {
     const { id } = params; // 从 params 中解构出 id
     const [visible, setVisible] = useState(false)
     const ref = useRef(null);
+    const [title, setTitle] = useState<string>();
+    const [price, setPrice] = useState<number>();
+    const [content, setContent] = useState<string>();
+    const imageMap:any = {};
 
   
   const [xyShops, setXyShops] = React.useState<{ shopName: string }[]>([{shopName:"蓝小飞鱼"}, {shopName:"tb133799136652"}]);
@@ -73,6 +78,14 @@ const Preview: React.FC<PreviewProps> = () => {
   
    
   }, [ref, data?.data]);
+  useEffect(() => {
+    if(data?.data){
+      setTitle(data?.data?.bookInfo?.title);
+      setPrice(data?.data?.bookInfo?.price);
+      setContent(getBookContent(data.data));
+    }
+  }, [data]);
+
   const handleChange = (value: string[]) => {
     const newXyShops = value.map((shopName) => ({ shopName }));
     setXyShops(newXyShops);
@@ -80,27 +93,33 @@ const Preview: React.FC<PreviewProps> = () => {
 
 
   const handlerPushBook = async () => {
-    console.log('data-----', data)
+    console.log('data-----', {
+      ...data.data.bookInfo,
+      title,
+      price,
+      content,
+      images: data?.data?.bookInfo?.images?.filter((_image:any, index:number) => imageMap[index + ''] !== false),
+    })
     if (data?.data && data?.data?.bookInfo && xyShops.length > 0) {
-      const promiseArray = xyShops.map(async (shop) => {
-        return publishBook({
-          ...data.data.bookInfo,
-          shopName: shop.shopName,
-        });
-      });
+      // const promiseArray = xyShops.map(async (shop) => {
+      //   return publishBook({
+      //     ...data.data.bookInfo,
+      //     shopName: shop.shopName,
+      //   });
+      // });
 
-      const newBook01 = await Promise.all(promiseArray);
+      // const newBook01 = await Promise.all(promiseArray);
       // 如果书籍发布成功， 则同步到书籍库
-      if (newBook01 &&  id) {
-        // 同步到书籍库
-        await updateNewBookDetailById(id, {
-          xyShops,
-        });
-      }
+      // if (newBook01 &&  id) {
+      //   // 同步到书籍库
+      //   await updateNewBookDetailById(id, {
+      //     xyShops,
+      //   });
+      // }
     }
   };
   return (
-    <div>
+    <div className={styles.editor}>
       {data &&
         data?.data &&
         Object.keys(data?.data?.bookInfo).map((key: string) => {
@@ -116,18 +135,29 @@ const Preview: React.FC<PreviewProps> = () => {
           return displayKeys.includes(key) ? (
             <dl key={key}>
               <dt>{key}</dt>
-              <dd>{data?.data?.bookInfo?.[key]}</dd>
+              {
+                key === 'title' ? <dd>
+                  <Input value={title} onChange={(value) => setTitle(value)} />
+                </dd> :
+                key === 'price' ? <dd>
+                  <Input  value={price+''} onChange={(value) => setPrice(+value || 0)} />
+                </dd> :
+                <dd>{data?.data?.bookInfo?.[key]}</dd>
+              }
             </dl>
           ) : null;
         })}
 
-      {!loading ? <pre>{data && getBookContent(data.data)}</pre> : null}
+      {!loading ? <TextArea  rows={20} defaultValue={data && getBookContent(data.data)} value={content} onChange={(value) => setContent(value)} /> : null}
       <Button color="primary"  ref={ref} >复制文本</Button>
       <div>---------------------</div>
       <Space wrap>
         {data?.data?.bookInfo?.images?.map((image: string, index:number) => (
         //   <Image key={image} width={100} src={image} />
-          <Image alt="圖片" width={100} height={100} key={image + index} lazy   fit='contain' src={image} onClick={() =>setVisible(true)} />
+          <div className={styles.image_box} key={image + index}>
+            <Image alt="圖片" width={100} height={100} lazy   fit='contain' src={image} onClick={() =>setVisible(true)} />
+            <Checkbox defaultChecked className={styles.checkbox}  onChange={(value) => imageMap[index + ''] = value } />
+          </div>
         ))}
         <Multi  images={data?.data?.bookInfo?.images || []} index={0} visible={visible} setVisible={setVisible}/>
         </Space>
