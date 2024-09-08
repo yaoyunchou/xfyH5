@@ -101,21 +101,21 @@ const Preview: React.FC<PreviewProps> = () => {
       images: data?.data?.bookInfo?.images?.filter((_image:any, index:number) => imageMap[index + ''] !== false),
     })
     if (data?.data && data?.data?.bookInfo && xyShops.length > 0) {
-      // const promiseArray = xyShops.map(async (shop) => {
-      //   return publishBook({
-      //     ...data.data.bookInfo,
-      //     shopName: shop.shopName,
-      //   });
-      // });
+      const promiseArray = xyShops.map(async (shop) => {
+        return publishBook({
+          ...data.data.bookInfo,
+          shopName: shop.shopName,
+        });
+      });
 
-      // const newBook01 = await Promise.all(promiseArray);
+      const newBook01 = await Promise.all(promiseArray);
       // 如果书籍发布成功， 则同步到书籍库
-      // if (newBook01 &&  id) {
-      //   // 同步到书籍库
-      //   await updateNewBookDetailById(id, {
-      //     xyShops,
-      //   });
-      // }
+      if (newBook01 &&  id) {
+        // 同步到书籍库
+        await updateNewBookDetailById(id, {
+          xyShops,
+        });
+      }
     }
   };
   return (
