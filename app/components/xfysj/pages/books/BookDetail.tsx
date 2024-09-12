@@ -105,6 +105,9 @@ const Preview: React.FC<PreviewProps> = () => {
         return publishBook({
           ...data.data.bookInfo,
           shopName: shop.shopName,
+          title,
+          price,
+          content,
         });
       });
 
@@ -114,6 +117,8 @@ const Preview: React.FC<PreviewProps> = () => {
         // 同步到书籍库
         await updateNewBookDetailById(id, {
           xyShops,
+          title,
+          price,
         });
       }
     }
