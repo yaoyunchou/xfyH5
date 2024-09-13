@@ -73,7 +73,7 @@ export const OrderList = () => {
                  <p> 手机号:{order.receiver_mobile}</p>
                  <p> 地址:{`${order?.prov_name}${order?.city_name}${order?.area_name}${order?.town_name}${order?.address}`}</p>
                  <p> 快递号:{order.waybill_no}</p>
-                  <p> 状态：{OrderStatus[`STATUS${order.order_status}`]}</p>
+                  <p> 状态：{OrderStatus[`STATUS${order.order_status}`  as keyof typeof OrderStatus]}</p>
               </div>
               {
                 order?.orderGood?.isbn ? <Button color='primary' size='small' onClick={() => {navigator(`/xfy/order-detail/${order.id}`)}}>去下单</Button>: null

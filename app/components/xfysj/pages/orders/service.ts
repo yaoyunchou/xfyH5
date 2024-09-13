@@ -341,18 +341,18 @@ export async function getOrders(
   const newParams = {
     id: params?.id,
     isbn: params?.isbn,
-    page: params.current,
+    page: params.page,
     title: params?.title,
     pageSize: params?.pageSize,
   };
   console.log("newParams", newParams);
   const url = `/api/nest/order`;
   const result = await axios<{
-    data: {
-      list: TableListItem[];
-      /** 列表的内容总数 */
-      total?: number;
-    };
+    
+    list: TableListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    
     code?: number;
     msg?: string;
   }>(url, {
