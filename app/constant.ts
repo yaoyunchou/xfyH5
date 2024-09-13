@@ -44,6 +44,7 @@ export enum Path {
   AddBook = "/xfy/new-book",
   BookList = "/xfy/book-list",
   BookDetail = "/xfy/book-detail/:id",
+  OrderList = "/xfy/order-list",
 }
 
 export enum ApiPath {
