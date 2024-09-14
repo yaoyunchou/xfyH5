@@ -30,6 +30,7 @@ export const KWBooks = () => {
 
   console.log("state", state);
   const [list, setList] = useState<any[]>([]);
+  const [link, setLink] = useState<string>();
   const [page, setPage] = useState<number>(1);
   const [quality, setQuality] = useState<string>("85~");
   const [sortType, setSortType] = useState(7);
@@ -50,7 +51,7 @@ export const KWBooks = () => {
       // 检查是否为最后一页
     }
   }, [data]);
-  const placeOrder = async (url: string) => {
+  const placeOrder = async (url: string, item) => {
     url = url.replace("https://book.kongfz.com/", "");
     console.log("下单", url);
     const [shopId, goodId] = url.split("/");
@@ -60,7 +61,9 @@ export const KWBooks = () => {
       address: state.address,
     });
     console.log("下单", result);
-    window.open(result);
+    window.open(result)
+    setLink(result);
+    item.link = result;
   };
   if (!state) {
     return <Empty />;
@@ -107,7 +110,7 @@ export const KWBooks = () => {
               onChange={(arr) => setSortType(arr[0])}
             />
           </div>
-
+          {link ? <a href={link} target="_blank"> {link}</a> : null}
           {list?.map((book, index) => (
             <List.Item key={index}>
               <a href={book.linkUrl} target="_blank">
@@ -133,12 +136,12 @@ export const KWBooks = () => {
                   <Button
                     color="primary"
                     size="small"
-                    onClick={() => placeOrder(book?.linkUrl)}
+                    onClick={() => placeOrder(book?.linkUrl, book)}
                   >
                     去下单
                   </Button>
                 ) : null}
-
+                {book.link ? <a href={book.link} target="_blank"> {book.link}</a> : null}
               </div>
             </List.Item>
           ))}
