@@ -4,6 +4,7 @@ import { useRequest } from 'ahooks'
 import { getOrders } from './service';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../indexPage.module.scss'
+import { Path } from '@/app/constant';
 
 enum OrderStatus {
   "STATUS11" = "待付款",
@@ -76,7 +77,7 @@ export const OrderList = () => {
                   <p> 状态：{OrderStatus[`STATUS${order.order_status}`  as keyof typeof OrderStatus]}</p>
               </div>
               {
-                order?.orderGood?.isbn ? <Button color='primary' size='small' onClick={() => {navigator(`/xfy/order-detail/${order.id}`)}}>去下单</Button>: null
+                order?.orderGood?.isbn ? <Button color='primary' size='small' onClick={() => {navigator(`${Path.KWBooks}`, { state: { isbn: order.orderGood.isbn, address: `${order.receiver_name}  ${order.receiver_mobile} ${order?.prov_name}${order?.city_name}${order?.area_name}${order?.town_name}${order?.address}`} })}}>去下单</Button>: null
               }
               
               <Button color='primary' size='small' onClick={() => {navigator(`/xfy/order-detail/${order.id}`)}}>填入单号</Button>

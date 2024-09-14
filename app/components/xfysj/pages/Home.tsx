@@ -22,14 +22,16 @@ export const XfyHome = () => {
     
     return  <DemoBlock title='book333' padding='0'>
     <Button block color='primary' onClick={() => navigate(Path.AddBook)}>
-       新增333
+      ISBN新增
    </Button>
    <Button block color='primary' onClick={() => navigate(Path.BookList)}>
-       图书列表44
+       图书列表
    </Button>
    <Button block color='primary' onClick={() => navigate(Path.OrderList)}>
        订单列表
    </Button>
-   <a className="weapp_text_link js_weapp_entry" data-miniprogram-appid="wx0bad87c71b11ea8c" data-miniprogram-path="searchpages/search/search?tab=0&amp;keyword=9787115416292" data-miniprogram-applink="" data-miniprogram-nickname="孔夫子旧书网" data-miniprogram-type="text" data-miniprogram-servicetype="" href="" >呜呜呜呜</a>
+   {/* <Button block color='primary' onClick={() => navigate(Path.KWBooks)}>
+       商品列表
+   </Button> */}
  </DemoBlock>
 }

@@ -51,4 +51,18 @@
             z-index: 1;
         }
     }
+
+    // 孔网相关内容
+    .kw_item_content{
+        display: flex;
+        justify-content: space-between;
+        .item_img{
+            width: 200px;
+            height: 200px;
+
+        }
+        .bookDetail{
+            flex:1;
+        }
+    }
 }

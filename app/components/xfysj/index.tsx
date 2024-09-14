@@ -29,6 +29,10 @@ const BookList = dynamic(async () => (await import("./pages/books/BookList")).Bo
 const OrderList = dynamic(async () => (await import("./pages/orders/OrderList")).OrderList, {
   loading: () => <Loading noLogo />,
 });
+
+const KWBooks = dynamic(async () => (await import("./pages/kongwang/KWBooks")).KWBooks, {
+  loading: () => <Loading noLogo />,
+});
 export const XfyPage = () => {
   useEffect(() => {
     // 每次进入的时候检查token
@@ -49,6 +53,7 @@ export const XfyPage = () => {
             <Route path={Path.BookDetail} element={<BookDetail />} />
             <Route path={Path.BookList} element={<BookList />} />
             <Route path={Path.OrderList} element={<OrderList />} />
+            <Route path={Path.KWBooks} element={<KWBooks />} />
           </Routes>
     </div>
   );
