@@ -1,4 +1,4 @@
-import { Button, Empty, Image, InfiniteScroll, List, Loading, SearchBar } from 'antd-mobile'
+import { Button, Empty, Image, InfiniteScroll, List, Loading, SearchBar, Selector } from 'antd-mobile'
 import React, { useEffect, useState } from 'react'
 import { useRequest } from 'ahooks'
 import { getOrders } from './service';
@@ -19,25 +19,23 @@ export const OrderList = () => {
   const navigator = useNavigate()
   const [list, setList] = useState<any[]>([])
   const [hasMore, setHasMore] = useState(true)
+  const [status, setStatus] = useState('12')
   const [current, setCurrent] = useState(1)
     const {data, run, loading} = useRequest(getOrders, {
         manual: true,
     });
     useEffect(() => {
       if (run) {
-        run({page: current});
+        run({page: current, order_status: status});
       }
-    }, []);
+    }, [status,current, run]);
 
     
     useEffect(() => {
       console.log('=================', data)
       if (data && data?.data?.length >= 0) {
-        setList(val => [...val, ...data.data])
-        // 检查是否为最后一页
-        if( data.total  && current * 10 < data.total) {
-          setHasMore(true)
-        }
+        setList(data.data)
+    
       }
     }, [data])
 
@@ -59,10 +57,35 @@ export const OrderList = () => {
 
    <div className={styles.list_box}>
     <List header='订单列表'>
+          <Selector
+
+              options={[
+                {
+                  label: "待发货",
+                  value: '12',
+                },
+                {
+                  label: "待付款",
+                  value: '11',
+                },
+                {
+                  label: "已发货",
+                  value: '21',
+                },
+              
+                {
+                  label: "已退款",
+                  value: '23',
+                },
+              ]}
+              value={[status]}
+              onChange={(arr, extend) => setStatus(arr[0])}
+            />
         {list?.map((order, index) => (
           <List.Item
             key={index}
           >
+
             {order.title}
             <div className={styles.list_item}>
               <div className={styles.item_content}>
@@ -80,7 +103,7 @@ export const OrderList = () => {
                 order?.orderGood?.isbn ? <Button color='primary' size='small' onClick={() => {navigator(`${Path.KWBooks}`, { state: { isbn: order.orderGood.isbn, address: `${order.receiver_name}  ${order.receiver_mobile} ${order?.prov_name}${order?.city_name}${order?.area_name}${order?.town_name}${order?.address}`} })}}>去下单</Button>: null
               }
               
-              <Button color='primary' size='small' onClick={() => {navigator(`/xfy/order-detail/${order.id}`)}}>填入单号</Button>
+              { order.order_status === "12" ? <Button color='primary' size='small' onClick={() => {navigator(`/xfy/order-detail/${order.id}`)}}>填入单号</Button>: null}
             </div>
           </List.Item>
         ))}

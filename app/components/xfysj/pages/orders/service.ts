@@ -325,7 +325,7 @@ export async function getOrders(
     /** 页面的容量 */
     pageSize?: number;
     shopName?: string;
-    product_status?: string;
+    order_status?: string;
     query?: string;
   },
 
@@ -341,9 +341,10 @@ export async function getOrders(
   const newParams = {
     id: params?.id,
     isbn: params?.isbn,
+    order_status: params?.order_status,
     page: params.page,
     title: params?.title,
-    pageSize: params?.pageSize,
+    pageSize: 50,
   };
   console.log("newParams", newParams);
   const url = `/api/nest/order`;

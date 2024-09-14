@@ -38,8 +38,8 @@ export const KWBooks = () => {
     manual: true,
   });
   useEffect(() => {
-    if (run) {
-      run({ isbn: state.isbn, page, quality, sortType });
+    if (run && state?.isbn) {
+      run({ isbn: state?.isbn, page, quality, sortType });
     }
   }, [run, state?.isbn, page, quality, sortType]);
 
@@ -121,10 +121,10 @@ export const KWBooks = () => {
                     </Badge>
                   </div>
                   <div className={styles.bookDetail}>
-                    <p>价格：{book.price}</p>
-                    <p>邮费：{book.postage}</p>
+                    <p>总价格：{book.allPrice}</p>
+                    <p>价格/邮费：{book.price} / {book.postage}</p>
                     <p>质量：{book.qualityStr}</p>
-                    <p>店铺：{book.shopCredit}</p>
+                    <p>店铺：{book.shopName}</p>
                   </div>
                 </div>
                 <p>服务质量：{book.shopServiceQuality}</p>
