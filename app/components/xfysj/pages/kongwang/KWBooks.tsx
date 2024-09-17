@@ -51,7 +51,7 @@ export const KWBooks = () => {
       // 检查是否为最后一页
     }
   }, [data]);
-  const placeOrder = async (url: string, item) => {
+  const placeOrder = async (url: string, item:any) => {
     url = url.replace("https://book.kongfz.com/", "");
     console.log("下单", url);
     const [shopId, goodId] = url.split("/");
@@ -156,7 +156,7 @@ export const KWBooks = () => {
         <Button onClick={() => setPage(page - 1)} loading={loading}>
           下一页
         </Button>
-      </div>
+      </div> 
     </>
   );
 };
